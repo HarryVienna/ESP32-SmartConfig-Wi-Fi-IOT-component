@@ -37,7 +37,7 @@ void app_main(){
             break;
         }
         default: {
-            printf("Not a deep sleep reset\n");
+            printf("ESP_SLEEP_WAKEUP_UNDEFINED\n");
         }
     }
 
@@ -57,8 +57,9 @@ void app_main(){
 
 
 
-    const int deep_sleep_sec = 10;
+    const int deep_sleep_sec = 60 * 10;
     ESP_LOGI(TAG, "Entering deep sleep for %d seconds", deep_sleep_sec);
     smartconfig->stop(smartconfig);
+    esp_sleep_pd_config(ESP_PD_DOMAIN_MAX, ESP_PD_OPTION_OFF);
     esp_deep_sleep(1000000LL * deep_sleep_sec);
 }
